@@ -15,6 +15,7 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Offers from './pages/Offers'
 
 import { WhatsAppButton } from './components/ui/WhatsAppButton'
 import { BackToTop } from './components/ui/BackToTop'
@@ -34,6 +35,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   useLenis()
 
+  const isAdmin = location.pathname.startsWith('/dashboard')
+
   return (
     <div className="relative min-h-screen">
       <AnimatePresence mode="wait">
@@ -43,11 +46,11 @@ export default function App() {
       </AnimatePresence>
 
       <CustomCursor />
-      <WhatsAppButton />
+      {!isAdmin && <WhatsAppButton />}
       <BackToTop />
       <ScrollToTop />
       
-      <Navbar />
+      {!isAdmin && <Navbar />}
       
       <main>
         <AnimatePresence mode="wait">
@@ -61,11 +64,12 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/offres" element={<Offers />} />
           </Routes>
         </AnimatePresence>
       </main>
 
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   )
 }

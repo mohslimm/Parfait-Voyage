@@ -9,15 +9,18 @@ export const useAuthStore = create(
       isLogged: false,
       bookings: mockBookings,
 
-      login: (email, password) => {
-        // Mock login — accepts any credentials
+      login: (data, password) => {
+        // Handle both (email, pass) and ({email, name, ...}) patterns
+        const email = typeof data === 'string' ? data : data.email
+        const name = typeof data === 'object' && data.name ? data.name : (email ? email.split('@')[0].replace(/\./g, ' ') : 'Voyageur')
+        
         const user = {
           id: 1,
-          email,
-          name: email.split('@')[0].replace(/\./g, ' '),
-          firstName: email.split('@')[0].split('.')[0],
+          email: email || 'demo@voyage.dz',
+          name: name,
+          firstName: typeof data === 'object' && data.firstName ? data.firstName : name.split(' ')[0],
           avatar: null,
-          memberSince: '2024',
+          memberSince: typeof data === 'object' && data.memberSince ? data.memberSince : '2024',
           phone: '+213 555 123 456',
         }
         set({ user, isLogged: true })

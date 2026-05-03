@@ -72,48 +72,119 @@ const WHY_US = [
     id: 'exp',
     title: 'Expertise locale',
     desc: '12 ans d\'expérience au service des voyageurs algériens avec une connaissance profonde des besoins locaux.',
-    icon: '🏅',
-    className: 'bento-large',
+    icon: 'ExpertiseIcon',
+    className: 'lg:col-span-2 lg:row-span-2',
     bg: 'from-[#006233] to-[#004d27]',
     light: false,
+    image: getImg('sahara,algeria,luxury', 800, 800),
+    badge: 'Depuis 2012',
+    meta: 'Agrément ONAT N° 2024-0847'
   },
   {
     id: 'price',
     title: 'Meilleurs prix',
-    desc: 'Tarifs en dinars, sans frais cachés.',
-    icon: '💰',
-    className: '',
-    bg: 'from-[#FAF7F2] to-[#f0ebe1]',
+    desc: 'Tarifs en dinars, sans frais cachés. Paiement flexible.',
+    icon: 'PriceIcon',
+    className: 'lg:col-span-1',
+    bg: 'from-white to-[#F8F5F0]',
     light: true,
+    badge: 'Taxes Incluses',
+    meta: 'Paiement CCP / BaridiMob'
   },
   {
     id: 'support',
     title: 'Support 24/7',
-    desc: 'Équipe disponible à toute heure.',
-    icon: '📞',
-    className: '',
-    bg: 'from-[#C9A96E]/20 to-[#C9A96E]/5',
+    desc: 'Une équipe dédiée disponible par téléphone et WhatsApp.',
+    icon: 'SupportIcon',
+    className: 'lg:col-span-1',
+    bg: 'from-[#FAF7F2] to-[#F0EBE1]',
     light: true,
+    badge: 'Réponse < 5min',
+    meta: 'Alger • Oran • Constantine'
   },
   {
     id: 'visa',
     title: 'Assistance visa',
-    desc: 'Accompagnement complet pour vos démarches consulaires.',
-    icon: '📋',
-    className: '',
-    bg: 'from-[#D21034]/10 to-[#D21034]/5',
+    desc: 'Accompagnement complet et préparation de dossier.',
+    icon: 'VisaIcon',
+    className: 'lg:col-span-1',
+    bg: 'from-[#FAF7F2] to-[#F0EBE1]',
     light: true,
+    badge: '98% Succès',
+    meta: 'Schengen • Turquie • Dubaï'
   },
   {
     id: 'custom',
-    title: 'Sur mesure',
-    desc: 'Chaque voyage est unique, comme vous.',
-    icon: '✨',
-    className: '',
-    bg: 'from-[#0A0A0F] to-[#12121a]',
+    title: 'Voyages sur mesure',
+    desc: 'Itinéraires uniques créés selon vos envies.',
+    icon: 'CustomIcon',
+    className: 'lg:col-span-1',
+    bg: 'from-[#0A0A0F] to-[#1a1a24]',
     light: false,
+    image: getImg('luxury,travel,resort', 600, 600),
+    badge: 'Premium',
+    meta: 'Hôtels 5★ uniquement'
   },
 ]
+
+// ─── Bento Icons Components ───────────────────
+function ExpertiseIcon({ light }) {
+  return (
+    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${light ? 'bg-[#006233]/10 text-[#006233]' : 'bg-white/10 text-white'} mb-6 backdrop-blur-md`}>
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
+      </svg>
+    </div>
+  )
+}
+
+function PriceIcon({ light }) {
+  return (
+    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${light ? 'bg-[#006233]/10 text-[#006233]' : 'bg-white/10 text-white'} mb-6`}>
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+  )
+}
+
+function SupportIcon({ light }) {
+  return (
+    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${light ? 'bg-[#006233]/10 text-[#006233]' : 'bg-white/10 text-white'} mb-6`}>
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    </div>
+  )
+}
+
+function VisaIcon({ light }) {
+  return (
+    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${light ? 'bg-[#006233]/10 text-[#006233]' : 'bg-white/10 text-white'} mb-6`}>
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    </div>
+  )
+}
+
+function CustomIcon({ light }) {
+  return (
+    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${light ? 'bg-[#C9A96E]/20 text-[#C9A96E]' : 'bg-white/10 text-[#C9A96E]'} mb-6 backdrop-blur-md`}>
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z" />
+      </svg>
+    </div>
+  )
+}
+
+const BENTO_ICONS = {
+  ExpertiseIcon,
+  PriceIcon,
+  SupportIcon,
+  VisaIcon,
+  CustomIcon
+}
 
 // ─── Stats data ───────────────────────────────
 const STATS = [
@@ -384,41 +455,78 @@ export default function Home() {
       <WaveDivider color="#FAF7F2" flip />
 
       {/* ─── WHY US — BENTO ───────────────────── */}
-      <section className="section-padding">
+      <section className="section-padding overflow-hidden">
         <div className="container-custom">
-          <div className="text-center mb-14">
-            <p className="text-[#C9A96E] text-sm font-semibold uppercase tracking-widest font-body mb-3">
+          <div className="text-center mb-20">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[#C9A96E] text-xs font-bold uppercase tracking-[0.3em] mb-4"
+            >
               Notre différence
-            </p>
+            </motion.p>
             <Reveal>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-[#0A0A0F]">
-                Pourquoi nous choisir ?
+              <h2 className="font-display text-4xl md:text-6xl font-bold text-[#0A0A0F] tracking-tight">
+                Pourquoi choisir <br className="hidden md:block" />
+                <span className="gradient-text-green">Parfait Voyages ?</span>
               </h2>
             </Reveal>
           </div>
 
-          <div className="bento-grid">
-            {WHY_US.map((item, i) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                className={`bg-gradient-to-br ${item.bg} rounded-3xl p-8 ${item.className} min-h-[200px] flex flex-col justify-between`}
-              >
-                <span className="text-4xl mb-4 block">{item.icon}</span>
-                <div>
-                  <h3 className={`font-display text-2xl font-semibold mb-2 ${item.light ? 'text-[#0A0A0F]' : 'text-white'}`}>
-                    {item.title}
-                  </h3>
-                  <p className={`text-sm font-body leading-relaxed ${item.light ? 'text-[#0A0A0F]/60' : 'text-white/70'}`}>
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+            {WHY_US.map((item, i) => {
+              const IconComp = BENTO_ICONS[item.icon]
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ y: -5 }}
+                  className={`relative group bg-gradient-to-br ${item.bg} rounded-[2.5rem] p-10 ${item.className} flex flex-col justify-between overflow-hidden border ${item.light ? 'border-black/5 shadow-lg shadow-black/5' : 'border-white/5'} transition-all duration-500`}
+                >
+                  {/* Background Image for Large Cards */}
+                  {item.image && (
+                    <div className="absolute inset-0 z-0">
+                      <img src={item.image} alt="" className="w-full h-full object-cover opacity-20 grayscale group-hover:scale-110 group-hover:opacity-30 transition-all duration-700" />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${item.bg} opacity-80`} />
+                    </div>
+                  )}
+
+                  {/* Decorative Glow */}
+                  <div className={`absolute top-0 right-0 w-48 h-48 blur-[80px] rounded-full ${item.light ? 'bg-[#006233]/5' : 'bg-white/5'} translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700`} />
+                  
+                  <div className="relative z-10 flex justify-between items-start">
+                    <IconComp light={item.light} />
+                    {item.badge && (
+                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${item.light ? 'bg-[#006233] text-white' : 'bg-[#C9A96E] text-[#0A0A0F]'}`}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <h3 className={`font-display text-3xl font-bold mb-4 tracking-tight ${item.light ? 'text-[#0A0A0F]' : 'text-white'}`}>
+                      {item.title}
+                    </h3>
+                    <p className={`text-sm font-body leading-relaxed mb-6 max-w-[320px] ${item.light ? 'text-[#0A0A0F]/60' : 'text-white/60'}`}>
+                      {item.desc}
+                    </p>
+                    
+                    <div className="pt-4 border-t border-current opacity-10 flex items-center justify-between">
+                      <span className={`text-[10px] font-bold uppercase tracking-widest ${item.light ? 'text-[#0A0A0F]' : 'text-white'}`}>
+                        {item.meta}
+                      </span>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>

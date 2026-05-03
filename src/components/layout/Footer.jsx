@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { staggerContainer, staggerItem } from '../../animations/variants'
 
 const footerLinks = {
   Destinations: [
@@ -28,61 +27,66 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-[#0A0A0F] text-white">
-      {/* Top accent stripe — Algerian flag colors */}
-      <div className="h-1 bg-gradient-to-r from-[#006233] via-white to-[#D21034]" />
+    <footer className="bg-[#0A0A0F] text-white border-t border-white/5">
+      {/* 1. Improved Flag Stripe */}
+      <div className="h-1.5 flex w-full">
+        <div className="h-full flex-1 bg-[#006233]" />
+        <div className="h-full flex-1 bg-white" />
+        <div className="h-full flex-1 bg-[#D21034]" />
+      </div>
 
-      <div className="container-custom py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#006233] to-[#004d27] flex items-center justify-center">
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="1.5">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        {/* 2. Better Grid Distribution */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+          
+          {/* Brand Section */}
+          <div className="lg:col-span-2 space-y-6">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#006233] to-[#004d27] flex items-center justify-center shadow-lg shadow-emerald-900/20">
+                <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 text-white" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                 </svg>
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-display font-semibold text-white text-lg">Parfait</span>
-                <span className="font-display text-[#C9A96E] text-xs tracking-[0.2em] uppercase">Voyages</span>
+              <div className="flex flex-col">
+                <span className="font-display font-bold text-white text-xl tracking-tight">Parfait</span>
+                <span className="font-display text-[#C9A96E] text-[10px] tracking-[0.3em] uppercase font-medium">Voyages</span>
               </div>
             </Link>
-            <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs font-body">
+            
+            <p className="text-white/60 text-sm leading-relaxed max-w-sm font-body">
               Agence de voyage algérienne haut de gamme. Nous créons des expériences inoubliables depuis Alger, Oran, Constantine et Annaba.
             </p>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[#C9A96E] text-lg font-arabic">رحلات مثالية</span>
-            </div>
-            <p className="text-white/40 text-xs font-body">Agrément ONAT N° 2024-0847</p>
 
-            {/* Social */}
-            <div className="flex items-center gap-3 mt-6">
+            <div className="pt-2">
+              <span className="text-[#C9A96E] text-xl font-arabic block mb-1">رحلات مثالية</span>
+              <p className="text-white/30 text-[10px] uppercase tracking-widest font-body">Agrément ONAT N° 2024-0847</p>
+            </div>
+
+            <div className="flex items-center gap-3">
               {['facebook', 'instagram', 'whatsapp', 'linkedin'].map((social) => (
                 <a
                   key={social}
                   href="#"
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#006233]/20 hover:border-[#006233] transition-all duration-200"
-                  data-cursor="pointer"
+                  className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#006233]/20 hover:border-[#006233] transition-all duration-300"
                 >
-                  <span className="sr-only">{social}</span>
                   <SocialIcon name={social} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* Links Sections */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-5 font-body">
+            <div key={title} className="lg:col-span-1">
+              <h3 className="font-bold text-white text-xs uppercase tracking-[0.2em] mb-6 font-body opacity-90">
                 {title}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.path}
-                      className="text-white/50 hover:text-[#C9A96E] text-sm font-body transition-colors duration-200"
+                      className="text-white/40 hover:text-[#C9A96E] text-sm font-body transition-colors duration-200 block"
                     >
                       {link.label}
                     </Link>
@@ -93,44 +97,41 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Newsletter */}
-        <div className="mt-12 pt-10 border-t border-white/8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <h3 className="font-display text-xl font-semibold text-white mb-1">
-                Nos offres exclusives dans votre boîte mail
+        {/* 3. Newsletter Section - Centered and Refined */}
+        <div className="mt-20 pt-12 border-t border-white/5">
+          <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="text-center lg:text-left">
+              <h3 className="font-display text-2xl font-semibold text-white mb-2">
+                Rejoignez le club Parfait
               </h3>
-              <p className="text-white/50 text-sm font-body">
-                Inscrivez-vous pour recevoir nos meilleures offres en avant-première.
+              <p className="text-white/50 text-sm font-body max-w-md">
+                Recevez nos itinéraires secrets et offres exclusives directement dans votre boîte mail.
               </p>
             </div>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex items-center gap-2 w-full md:w-auto"
-            >
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
               <input
                 type="email"
                 placeholder="votre@email.com"
-                className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#006233] flex-1 md:w-64 font-body"
+                className="px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white text-sm placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-[#006233]/50 focus:border-[#006233] transition-all w-full sm:w-80 font-body"
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-[#006233] text-white rounded-xl text-sm font-medium hover:bg-[#007a3f] transition-colors"
+                className="px-8 py-4 bg-[#006233] hover:bg-[#007a3f] text-white rounded-2xl text-sm font-semibold transition-all shadow-lg shadow-emerald-900/20 active:scale-95"
               >
-                S'inscrire
+                S'abonner
               </button>
             </form>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-xs font-body">
-            © {new Date().getFullYear()} Parfait Voyages. Tous droits réservés. Alger, Algérie.
+        {/* Bottom Credits */}
+        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-white/20 text-[11px] font-body">
+            © {new Date().getFullYear()} PARFAIT VOYAGES. TOUS DROITS RÉSERVÉS. ALGER, ALGÉRIE.
           </p>
-          <div className="flex items-center gap-6">
-            {['Politique de confidentialité', 'CGV', 'Mentions légales'].map((item) => (
-              <a key={item} href="#" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">
+          <div className="flex items-center gap-8">
+            {['Confidentialité', 'CGV', 'Mentions'].map((item) => (
+              <a key={item} href="#" className="text-white/20 hover:text-white/60 text-[11px] font-body transition-colors">
                 {item}
               </a>
             ))}
@@ -149,7 +150,7 @@ function SocialIcon({ name }) {
     linkedin:  <><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></>,
   }
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-white/60">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-white/50">
       {icons[name]}
     </svg>
   )
