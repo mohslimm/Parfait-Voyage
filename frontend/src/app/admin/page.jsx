@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, BellRing, CheckCircle2, XCircle,
   Clock, Plane, Users, TrendingUp, RefreshCw, ChevronDown,
-  Calendar, Phone, Mail, MapPin, Hash, AlertCircle
+  Calendar, Phone, Mail, MapPin, Hash, AlertCircle, Lock, ArrowRight
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -213,11 +213,36 @@ function BookingRow({ booking, onUpdate }) {
 
 // ─── Main Component ───────────────────────────────────────────────
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuth] = useState(false)
+  const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState(false)
+
   const [bookings, setBookings] = useState([])
   const [status, setStatus] = useState('loading')
   const [filter, setFilter] = useState('all')
   const [lastCount, setLastCount] = useState(0)
   const [refreshing, setRefreshing] = useState(false)
+
+  // Check session on mount
+  useEffect(() => {
+    if (sessionStorage.getItem('admin_auth') === 'true') {
+      setIsAuth(true)
+    }
+  }, [])
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    // Simple frontend protection for now
+    if (password === 'admin' || password === 'admin123') {
+      sessionStorage.setItem('admin_auth', 'true')
+      setIsAuth(true)
+      setLoginError(false)
+      toast.success('Bienvenue', { description: 'Connexion réussie au dashboard.' })
+    } else {
+      setLoginError(true)
+      toast.error('Accès refusé', { description: 'Mot de passe incorrect.' })
+    }
+  }
 
   const fetchBookings = useCallback(async (silent = false) => {
     if (!silent) setStatus('loading')
@@ -251,14 +276,15 @@ export default function AdminDashboard() {
 
   // Initial fetch
   useEffect(() => {
-    fetchBookings(false)
-  }, [])
+    if (isAuthenticated) fetchBookings(false)
+  }, [isAuthenticated, fetchBookings])
 
   // Polling for real-time notifications
   useEffect(() => {
+    if (!isAuthenticated) return
     const id = setInterval(() => fetchBookings(true), POLL_INTERVAL_MS)
     return () => clearInterval(id)
-  }, [fetchBookings])
+  }, [isAuthenticated, fetchBookings])
 
   const handleStatusUpdate = (id, newStatus) => {
     setBookings((prev) =>
@@ -277,6 +303,56 @@ export default function AdminDashboard() {
   }).length
 
   const filtered = filter === 'all' ? bookings : bookings.filter((b) => b.status === filter)
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#060610] flex items-center justify-center p-6 relative overflow-hidden" style={{ fontFamily: 'Outfit, sans-serif' }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c5a059]/5 rounded-full blur-3xl pointer-events-none" />
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md bg-[#0a0a14] border border-white/10 p-10 rounded-[32px] shadow-2xl relative z-10"
+        >
+          <div className="w-16 h-16 rounded-2xl bg-[#c5a059]/10 flex items-center justify-center mb-8 mx-auto">
+            <Lock className="w-8 h-8 text-[#c5a059]" strokeWidth={1.5} />
+          </div>
+          
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+              Accès Restreint
+            </h1>
+            <p className="text-white/40 text-sm">
+              Veuillez vous identifier pour accéder au dashboard administrateur de Parfait Voyage.
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setLoginError(false); }}
+                className={`w-full px-5 py-4 bg-[#0f0f20] border ${loginError ? 'border-[#ef4444]' : 'border-white/10'} rounded-2xl focus:outline-none focus:border-[#c5a059] transition-all text-white placeholder:text-white/20`}
+                placeholder="••••••••"
+                autoFocus
+              />
+            </div>
+            
+            <button
+              type="submit"
+              className="w-full py-4 bg-[#c5a059] text-[#1A1200] rounded-2xl font-bold text-sm hover:bg-[#e8c77a] transition-all flex items-center justify-center gap-2 group"
+            >
+              Déverrouiller
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#060610] text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
