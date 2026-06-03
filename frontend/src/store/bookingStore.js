@@ -16,7 +16,7 @@ export const useBookingStore = create((set, get) => ({
   // Step 1: dates & travelers
   departureDate: '',
   returnDate: '',
-  adults: 2,
+  adults: 1,
   children: 0,
   departureCity: 'ALG',
 
