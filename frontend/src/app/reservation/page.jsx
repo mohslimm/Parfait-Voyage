@@ -118,7 +118,7 @@ export default function Reservation() {
             className="relative mt-16 py-24 md:py-32 px-6 rounded-[40px] overflow-hidden bg-[#060610] flex flex-col items-center justify-center text-center shadow-2xl border border-white/5"
           >
             {/* Background Image with Dark Overlay */}
-            <img src="/maldives.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />
+            <img src="/maldives.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay blur-[3px] scale-105" />
             <div className="absolute inset-0 bg-[#060610]/50" />
             
             {/* Ambient Background Glow */}
