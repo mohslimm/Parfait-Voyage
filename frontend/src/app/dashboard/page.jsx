@@ -7,6 +7,8 @@ import { formatDA } from '@/utils/formatDA'
 import { fadeInUp, staggerContainer, staggerItem } from '@/animations/variants'
 import { getImg } from '@/utils/unsplash'
 
+import { redirect } from 'next/navigation'
+
 const STATUS_COLORS = {
   confirmé: { bg: '#006233/10', text: '#006233', label: 'Confirmé' },
   terminé:  { bg: '#C9A96E/10', text: '#a8834a', label: 'Terminé' },
@@ -16,7 +18,9 @@ const STATUS_COLORS = {
 export default function Dashboard() {
   const { user, isLogged, bookings, logout } = useAuth()
 
-  if (!isLogged) return <Navigate to="/login" replace />
+  if (!isLogged) {
+    redirect('/login')
+  }
 
   const upcoming  = bookings.filter((b) => b.status === 'confirmé')
   const completed = bookings.filter((b) => b.status === 'terminé')
