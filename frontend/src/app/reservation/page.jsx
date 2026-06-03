@@ -119,7 +119,7 @@ export default function Reservation() {
           >
             {/* Background Image with Dark Overlay */}
             <img src="/maldives.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-[#060610]/85" />
+            <div className="absolute inset-0 bg-[#060610]/50" />
             
             {/* Ambient Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#c5a059] opacity-[0.03] blur-[120px] pointer-events-none rounded-full" />
