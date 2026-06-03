@@ -115,8 +115,12 @@ export default function Reservation() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="relative py-24 md:py-32 px-6 rounded-[40px] overflow-hidden bg-[#060610] flex flex-col items-center justify-center text-center shadow-2xl border border-white/5"
+            className="relative mt-16 py-24 md:py-32 px-6 rounded-[40px] overflow-hidden bg-[#060610] flex flex-col items-center justify-center text-center shadow-2xl border border-white/5"
           >
+            {/* Background Image with Dark Overlay */}
+            <img src="/maldives.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[#060610]/85" />
+            
             {/* Ambient Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#c5a059] opacity-[0.03] blur-[120px] pointer-events-none rounded-full" />
             
