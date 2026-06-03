@@ -115,28 +115,40 @@ export default function Reservation() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="relative text-center py-28 overflow-hidden rounded-[40px] bg-primary"
+            className="relative py-24 md:py-32 px-6 rounded-[40px] overflow-hidden bg-[#060610] flex flex-col items-center justify-center text-center shadow-2xl border border-white/5"
           >
-            <img src="/maldives.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent" />
-            <div className="relative z-10">
-              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-                <svg className="w-12 h-12 text-[#C9A96E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-                </svg>
-              </div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                Choisissez d'abord votre destination
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#c5a059] opacity-[0.03] blur-[120px] pointer-events-none rounded-full" />
+            
+            {/* Icon */}
+            <div className="relative z-10 w-20 h-20 mx-auto mb-10 rounded-full flex items-center justify-center border border-[#c5a059]/20 bg-[#c5a059]/5 backdrop-blur-md">
+              <svg className="w-8 h-8 text-[#c5a059]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+
+            {/* Typography */}
+            <div className="relative z-10 max-w-2xl mx-auto mb-12">
+              <h2 className="font-display text-4xl md:text-6xl text-white mb-6 leading-tight">
+                Choisissez votre prochaine <br/>
+                <span className="text-[#c5a059] italic">Destination de Rêve</span>
               </h2>
-              <p className="text-white/60 font-body text-lg mb-8 max-w-md mx-auto">
-                Parcourez nos destinations et cliquez sur « Réserver ce voyage ».
+              <p className="text-white/50 font-body text-lg md:text-xl font-light">
+                Sélectionnez d'abord un voyage parmi notre collection exclusive avant de procéder à la réservation.
               </p>
+            </div>
+
+            {/* CTA */}
+            <div className="relative z-10">
               <a
                 href="/destinations"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#C9A96E] text-white rounded-2xl font-semibold font-body hover:bg-[#dbbf8a] transition-colors"
+                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-[#B8924A] via-[#c5a059] to-[#D4B57A] text-[#1A1200] rounded-full font-bold font-body text-sm uppercase tracking-widest overflow-hidden transition-transform hover:scale-105"
               >
-                Voir les destinations
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                <span className="relative z-10">Explorer la collection</span>
+                <svg className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
               </a>
             </div>
           </motion.div>
