@@ -6,7 +6,7 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { BackToTop } from "@/components/ui/BackToTop";
 
-import { Toaster } from 'sonner';
+import { ClientToaster } from '@/components/ui/ClientToaster';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen relative" suppressHydrationWarning>
-        <Toaster position="top-right" richColors toastOptions={{
+        <ClientToaster position="top-right" richColors toastOptions={{
           style: { fontFamily: 'var(--font-outfit)', borderRadius: '12px' }
         }} />
         <CustomCursor />
