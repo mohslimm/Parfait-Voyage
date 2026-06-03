@@ -31,9 +31,8 @@ export function Button({
   ...props
 }) {
   const ref = useRef(null)
-  const { x, y } = magnetic
-    ? useMagneticButton(ref)
-    : { x: 0, y: 0 }
+  const magneticPos = useMagneticButton(ref)
+  const { x, y } = magnetic ? magneticPos : { x: 0, y: 0 }
 
   return (
     <motion.button
