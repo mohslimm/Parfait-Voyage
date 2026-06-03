@@ -7,6 +7,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { BackToTop } from "@/components/ui/BackToTop";
 
 import { Toaster } from 'sonner';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: "Parfait Voyages — Votre complice pour des voyages inoubliables",
@@ -35,7 +36,9 @@ export default function RootLayout({
         <CustomCursor />
         <WhatsAppButton />
         <BackToTop />
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         <main>{children}</main>
         <Footer />
       </body>

@@ -42,7 +42,9 @@ function AnimatedCheck() {
   )
 }
 
-export default function Confirmation() {
+import { Suspense } from 'react';
+
+function ConfirmationContent() {
   const params = useSearchParams()
   const ref  = params.get('ref')  || 'PV-2026-0000'
   const dest = params.get('dest') || 'votre destination'
@@ -227,5 +229,13 @@ export default function Confirmation() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function Confirmation() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF7F2]" />}>
+      <ConfirmationContent />
+    </Suspense>
   )
 }

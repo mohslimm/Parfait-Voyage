@@ -5,7 +5,9 @@ import { DestinationGrid } from '@/components/destination/DestinationGrid'
 import { useFilters } from '@/hooks/useFilters'
 import { clipPathReveal, fadeInUp } from '@/animations/variants'
 
-export default function Destinations() {
+import { Suspense } from 'react';
+
+function DestinationsContent() {
   const { filters, updateFilter, resetFilters, filtered } = useFilters()
 
   return (
@@ -68,5 +70,13 @@ export default function Destinations() {
         <DestinationGrid destinations={filtered} />
       </div>
     </div>
+  )
+}
+
+export default function Destinations() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF7F2]" />}>
+      <DestinationsContent />
+    </Suspense>
   )
 }
