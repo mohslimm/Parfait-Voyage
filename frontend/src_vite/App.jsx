@@ -53,11 +53,11 @@ export default function App() {
       </AnimatePresence>
 
       <CustomCursor />
-      <WhatsAppButton />
+      {!isAdmin && <WhatsAppButton />}
       <BackToTop />
       <ScrollToTop />
       
-      <Navbar />
+      {!isAdmin && <Navbar />}
       
       <main>
         <AnimatePresence mode="wait">
@@ -77,7 +77,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   )
 }

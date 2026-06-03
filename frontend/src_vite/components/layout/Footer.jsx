@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { staggerContainer, staggerItem } from '../../animations/variants'
 
 const footerLinks = {
   Destinations: [
@@ -55,8 +54,12 @@ export function Footer() {
             </div>
             <p className="text-white/40 text-xs font-body">Agrément ONAT N° 2024-0847</p>
 
-            {/* Social */}
-            <div className="flex items-center gap-3 mt-6">
+            <div className="pt-2">
+              <span className="text-[#C9A96E] text-xl font-arabic block mb-1">رحلات مثالية</span>
+              <p className="text-white/30 text-[10px] uppercase tracking-widest font-body">Agrément ONAT N° 2024-0847</p>
+            </div>
+
+            <div className="flex items-center gap-3">
               {['facebook', 'instagram', 'whatsapp', 'linkedin'].map((social) => (
                 <a
                   key={social}
@@ -64,25 +67,24 @@ export function Footer() {
                   className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary transition-all duration-200"
                   data-cursor="pointer"
                 >
-                  <span className="sr-only">{social}</span>
                   <SocialIcon name={social} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* Links Sections */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-5 font-body">
+            <div key={title} className="lg:col-span-1">
+              <h3 className="font-bold text-white text-xs uppercase tracking-[0.2em] mb-6 font-body opacity-90">
                 {title}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.path}
-                      className="text-white/50 hover:text-[#C9A96E] text-sm font-body transition-colors duration-200"
+                      className="text-white/40 hover:text-[#C9A96E] text-sm font-body transition-colors duration-200 block"
                     >
                       {link.label}
                     </Link>
@@ -93,21 +95,18 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Newsletter */}
-        <div className="mt-12 pt-10 border-t border-white/8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <h3 className="font-display text-xl font-semibold text-white mb-1">
-                Nos offres exclusives dans votre boîte mail
+        {/* 3. Newsletter Section - Centered and Refined */}
+        <div className="mt-20 pt-12 border-t border-white/5">
+          <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="text-center lg:text-left">
+              <h3 className="font-display text-2xl font-semibold text-white mb-2">
+                Rejoignez le club Parfait
               </h3>
-              <p className="text-white/50 text-sm font-body">
-                Inscrivez-vous pour recevoir nos meilleures offres en avant-première.
+              <p className="text-white/50 text-sm font-body max-w-md">
+                Recevez nos itinéraires secrets et offres exclusives directement dans votre boîte mail.
               </p>
             </div>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex items-center gap-2 w-full md:w-auto"
-            >
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
               <input
                 type="email"
                 placeholder="votre@email.com"
@@ -117,7 +116,7 @@ export function Footer() {
                 type="submit"
                 className="px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-light transition-colors"
               >
-                S'inscrire
+                S'abonner
               </button>
             </form>
           </div>
@@ -147,7 +146,7 @@ function SocialIcon({ name }) {
     linkedin:  <><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></>,
   }
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-white/60">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-white/50">
       {icons[name]}
     </svg>
   )
