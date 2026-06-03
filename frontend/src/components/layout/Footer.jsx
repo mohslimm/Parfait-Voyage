@@ -125,9 +125,9 @@ export function Footer() {
             © {new Date().getFullYear()} Parfait Voyages. Tous droits réservés. Chéraga, Alger.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">Politique de confidentialité</Link>
+            <Link href="/politique-confidentialite" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">Politique de confidentialité</Link>
             <Link href="/cgv" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">CGV</Link>
-            <Link href="/contact" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">Mentions légales</Link>
+            <Link href="/mentions-legales" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">Mentions légales</Link>
           </div>
         </div>
       </div>
