@@ -33,6 +33,39 @@
   --spacing-84: 21rem;
   --spacing-96: 24rem;
 
+  /* Admin dark surfaces */
+  --color-admin-bg:         #080c14;
+  --color-admin-surface:    #0f1520;
+  --color-admin-surface-2:  #161d2e;
+  --color-admin-surface-3:  #1e2640;
+  --color-admin-border:     rgba(255,255,255,0.07);
+  --color-admin-border-2:   rgba(255,255,255,0.12);
+
+  /* Status colors */
+  --color-status-pending:    #f59e0b;
+  --color-status-confirmed:  #22c55e;
+  --color-status-cancelled:  #ef4444;
+  --color-status-completed:  #6b7280;
+
+  /* Semantic */
+  --color-admin-text:        #e8eaf0;
+  --color-admin-text-muted:  #6b7a99;
+  --color-admin-text-faint:  #3a445c;
+  
+  /* Antigravity Colors */
+  --color-bg-void:       #060610;
+  --color-bg-primary:    #0a0a14;
+  --color-bg-surface:    #0f0f20;
+  --color-bg-elevated:   #14142a;
+  --color-gold-500:      #c5a059;
+  --color-gold-400:      #e8c77a;
+  --color-gold-glow:     rgba(197,160,89,0.12);
+  --color-border-subtle: rgba(255,255,255,0.07);
+  --color-border-gold:   rgba(197,160,89,0.30);
+  --color-success:       #22c55e;
+  --color-danger:        #ef4444;
+  --color-warning:       #f59e0b;
+
   /* Border radius */
   --radius-4xl: 2rem;
   --radius-5xl: 2.5rem;

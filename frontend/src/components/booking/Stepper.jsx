@@ -286,7 +286,7 @@ const STEPS = [
   { id: 4, label: 'Paiement' },
 ]
 
-export function Stepper({ onComplete }) {
+export function Stepper({ onComplete, isSubmitting }) {
   const store = useBookingStore()
   const direction = store.stepDirection
 
@@ -397,10 +397,11 @@ export function Stepper({ onComplete }) {
             type="button"
             whileTap={{ scale: 0.95 }}
             onClick={onComplete}
-            className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#006233] to-[#C9A96E] text-white rounded-xl text-sm font-semibold font-body hover:opacity-90 transition-opacity shadow-gold"
+            disabled={isSubmitting}
+            className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#006233] to-[#C9A96E] text-white rounded-xl text-sm font-semibold font-body hover:opacity-90 transition-opacity shadow-gold disabled:opacity-50"
             data-cursor="pointer"
           >
-            Confirmer la réservation ✓
+            {isSubmitting ? 'Traitement...' : 'Confirmer la réservation ✓'}
           </motion.button>
         )}
       </div>

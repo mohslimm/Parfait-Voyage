@@ -1,7 +1,11 @@
 "use client";
 import { motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 export function WhatsAppButton() {
+  const pathname = usePathname()
+  if (pathname?.startsWith('/admin')) return null
+
   return (
     <motion.a
       href="https://wa.me/213555000000"

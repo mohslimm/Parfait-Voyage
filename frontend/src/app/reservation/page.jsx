@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from 'next/navigation'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { motion } from 'framer-motion'
 import { Stepper } from '@/components/booking/Stepper'
 import { BookingSummary } from '@/components/booking/BookingSummary'
 import { useBookingStore } from '@/store/bookingStore'
 import { useAuthStore } from '@/store/authStore'
+import { useAdminStore } from '@/store/adminStore'
 import { generateRef } from '@/utils/generateRef'
 import { fadeInUp } from '@/animations/variants'
 
@@ -14,12 +16,15 @@ export default function Reservation() {
   const store = useBookingStore()
   const addBooking = useAuthStore((s) => s.addBooking)
 
-  const handleComplete = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleComplete = async () => {
     // Generate booking and save
     const ref = generateRef()
     const destination = store.destination
 
     if (destination) {
+      setIsSubmitting(true);
       const basePrice = destination.price * (store.adults + store.children * 0.5)
       const extrasTotal = store.selectedExtras.reduce((acc, id) => {
         const found = store.extras.find((e) => e.id === id)
@@ -43,28 +48,85 @@ export default function Reservation() {
       // Add to local state (for instant UI update/dashboard)
       addBooking(bookingData)
 
+      // Add to admin store reservations
+      const adminStore = useAdminStore.getState();
+      const existingClient = adminStore.clients.find(c => c.email === (store.email || 'contact@client.com'));
+      const clientId = existingClient ? existingClient.id : `CLI-${adminStore.clients.length + 1}`;
+      
+      if (!existingClient) {
+        adminStore.createClient({
+          id: clientId,
+          firstName: store.firstName || 'Nouveau',
+          lastName: store.lastName || 'Client',
+          email: store.email || 'contact@client.com',
+          phone: store.phone || '0500000000',
+          city: store.departureCity || 'Alger',
+          totalSpent: bookingData.totalPrice,
+          totalReservations: 1,
+          lastActivity: new Date().toISOString(),
+          tags: ['Nouveau']
+        });
+      } else {
+        adminStore.updateClient(clientId, {
+          totalSpent: existingClient.totalSpent + bookingData.totalPrice,
+          totalReservations: existingClient.totalReservations + 1,
+          lastActivity: new Date().toISOString()
+        });
+      }
+
+      // Add to admin store so it appears in the backend dashboard
+      adminStore.createReservation({
+        ref: bookingData.ref,
+        client: {
+          id: clientId,
+          name: `${store.firstName || 'Nouveau'} ${store.lastName || 'Client'}`,
+          email: store.email || 'contact@client.com',
+          phone: store.phone || '0500000000',
+        },
+        destination: {
+          name: destination.name,
+          image: destination.image || '',
+        },
+        dates: {
+          start: bookingData.departure,
+          end: bookingData.returnDate,
+        },
+        travelers: bookingData.travelers,
+        totalPrice: bookingData.totalPrice,
+        status: 'pending', // Overriding 'confirmé' so admin can approve
+      });
+
       // Send to backend API to trigger email and save to DB
       const authUser = useAuthStore.getState().user;
-      fetch('http://localhost:5000/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: authUser ? authUser.firstName : 'Client',
-          lastName: authUser ? authUser.name.replace(authUser.firstName, '').trim() : 'Nouveau',
-          email: authUser ? authUser.email : 'contact@client.com',
-          phone: authUser ? authUser.phone : '0500000000',
-          destination: destination.name,
-          date: store.departureDate || 'À définir',
-          passengers: store.adults + store.children,
-          message: `Ref: ${ref} - Total: ${bookingData.totalPrice} DA`,
-        }),
-      }).catch((err) => console.error('Failed to send booking to backend:', err))
-    }
+      try {
+        const res = await fetch('http://localhost:5000/api/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: authUser ? authUser.firstName : store.firstName || 'Client',
+            lastName: authUser ? authUser.name.replace(authUser.firstName, '').trim() : store.lastName || 'Nouveau',
+            email: authUser ? authUser.email : store.email || 'contact@client.com',
+            phone: authUser ? authUser.phone : store.phone || '0500000000',
+            destination: destination.name,
+            date: store.departureDate || 'À définir',
+            passengers: store.adults + store.children,
+            message: `Ref: ${ref} - Total: ${bookingData.totalPrice} DA`,
+          }),
+        });
 
-    store.reset()
-    router.push(`/confirmation?ref=${ref}&dest=${encodeURIComponent(destination?.name || '')}`)
+        if (!res.ok) throw new Error('Failed to create booking');
+        
+        store.reset()
+        router.push(`/confirmation?ref=${ref}&dest=${encodeURIComponent(destination?.name || '')}`)
+      } catch (err) {
+        console.error('Failed to send booking to backend:', err);
+        alert('Erreur lors de la réservation. Veuillez réessayer.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   }
 
   return (
@@ -165,7 +227,7 @@ export default function Reservation() {
               animate="visible"
               className="lg:col-span-3 bg-white rounded-3xl p-8 shadow-card"
             >
-              <Stepper onComplete={handleComplete} />
+              <Stepper onComplete={handleComplete} isSubmitting={isSubmitting} />
             </motion.div>
 
             {/* Summary */}

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { NavbarWrapper } from "@/components/layout/NavbarWrapper";
+import { FooterWrapper } from "@/components/layout/FooterWrapper";
+import { MainWrapper } from "@/components/layout/MainWrapper";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { BackToTop } from "@/components/ui/BackToTop";
@@ -37,10 +38,10 @@ export default function RootLayout({
         <WhatsAppButton />
         <BackToTop />
         <Suspense fallback={null}>
-          <Navbar />
+          <NavbarWrapper />
         </Suspense>
-        <main>{children}</main>
-        <Footer />
+        <MainWrapper>{children}</MainWrapper>
+        <FooterWrapper />
       </body>
     </html>
   );

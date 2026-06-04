@@ -135,7 +135,7 @@ export function Navbar() {
                   </Link>
                   <Link
                     href="/reservation"
-                    className="pulse-soft inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors shadow-premium"
+                    className="pulse-soft inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#B8924A] via-[#c5a059] to-[#D4B57A] text-[#1A1200] text-sm font-semibold hover:scale-105 transition-all shadow-premium"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -206,7 +206,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/reservation"
-                      className="px-6 py-3 bg-[#006233] text-white rounded-xl font-semibold text-center"
+                      className="px-6 py-3 bg-gradient-to-r from-[#B8924A] via-[#c5a059] to-[#D4B57A] text-[#1A1200] rounded-xl font-semibold text-center hover:scale-105 transition-transform"
                     >
                       Réserver un voyage
                     </Link>

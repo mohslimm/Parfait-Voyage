@@ -8,7 +8,8 @@ export function CustomCursor() {
   const [isImage, setIsImage] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
 
-  const springConfig = { stiffness: 100, damping: 18, mass: 0.8 }
+  // Optimized stiffness and damping for a fast, jitter-free follow
+  const springConfig = { stiffness: 200, damping: 20, mass: 0.2 }
   const ringX = useSpring(-100, springConfig)
   const ringY = useSpring(-100, springConfig)
 
@@ -18,27 +19,31 @@ export function CustomCursor() {
       setPos({ x, y })
       ringX.set(x)
       ringY.set(y)
+    }
 
-      const el = document.elementFromPoint(x, y)
-      if (!el) return
-
-      const cursorAttr = el.closest('[data-cursor]')?.dataset.cursor
-      setIsPointer(
-        cursorAttr === 'pointer' ||
-        el.closest('button, a, [role="button"], input, select, textarea') !== null
-      )
-      setIsImage(cursorAttr === 'image' || el.closest('[data-cursor="image"]') !== null)
+    const handleMouseOver = (e) => {
+      const el = e.target;
+      if (el && el.closest) {
+        const cursorAttr = el.closest('[data-cursor]')?.dataset.cursor;
+        setIsPointer(
+          cursorAttr === 'pointer' ||
+          el.closest('button, a, [role="button"], input, select, textarea, label') !== null
+        )
+        setIsImage(cursorAttr === 'image' || el.closest('[data-cursor="image"]') !== null)
+      }
     }
 
     const handleLeave = () => setIsHidden(true)
     const handleEnter = () => setIsHidden(false)
 
-    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('mousemove', handleMove, { passive: true })
+    document.addEventListener('mouseover', handleMouseOver, { passive: true })
     document.documentElement.addEventListener('mouseleave', handleLeave)
     document.documentElement.addEventListener('mouseenter', handleEnter)
 
     return () => {
       window.removeEventListener('mousemove', handleMove)
+      document.removeEventListener('mouseover', handleMouseOver)
       document.documentElement.removeEventListener('mouseleave', handleLeave)
       document.documentElement.removeEventListener('mouseenter', handleEnter)
     }
@@ -57,7 +62,7 @@ export function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: '#006233',
+          backgroundColor: 'var(--color-accent, #C9A96E)',
           transform: 'translate(-50%, -50%)',
           transition: 'opacity 0.2s',
           opacity: isHidden ? 0 : 1,
@@ -73,11 +78,11 @@ export function CustomCursor() {
           width: isImage ? 72 : isPointer ? 52 : 36,
           height: isImage ? 72 : isPointer ? 52 : 36,
           borderRadius: '50%',
-          border: '1.5px solid #006233',
+          border: '1.5px solid var(--color-accent, #C9A96E)',
           transform: 'translate(-50%, -50%)',
           opacity: isPointer ? 0.5 : 0.6,
           mixBlendMode: isPointer ? 'difference' : 'normal',
-          backgroundColor: isImage ? 'rgba(0,98,51,0.15)' : 'transparent',
+          backgroundColor: isImage ? 'rgba(201, 169, 110, 0.15)' : 'transparent',
           transition: 'width 0.25s ease, height 0.25s ease, opacity 0.25s ease',
         }}
       >

@@ -208,7 +208,7 @@ export default function Home() {
       {/* ─── HERO ─────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] mt-14 md:mt-16 flex items-center justify-center overflow-hidden bg-[#0A0A0F]"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0F]"
       >
         {/* Video background */}
         <motion.div
@@ -578,7 +578,7 @@ export default function Home() {
           >
             <Link
               href="/reservation"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-2xl font-bold font-body text-lg hover:bg-accent-light transition-colors shadow-gold"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#B8924A] via-[#c5a059] to-[#D4B57A] text-[#1A1200] rounded-2xl font-semibold font-body text-lg hover:scale-105 transition-all shadow-gold"
             >
               Réserver maintenant
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

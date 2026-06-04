@@ -32,6 +32,15 @@ router.post('/', async (req, res) => {
     
     await newBooking.save();
 
+    // Create Admin Notification
+    const Notification = require('../models/Notification');
+    await Notification.create({
+      title: 'Nouvelle réservation',
+      message: `${firstName} ${lastName} a réservé pour ${destination}`,
+      type: 'reservation',
+      link: `/admin/reservations`
+    });
+
     // Send confirmation email
     if (process.env.SMTP_USER) {
       const mailOptions = {
@@ -47,7 +56,7 @@ router.post('/', async (req, res) => {
         `
       };
       
-      await transporter.sendMail(mailOptions);
+      await transporter.sendMail(mailOptions).catch(console.error);
 
       // Send admin notification
       const adminEmail = process.env.ADMIN_EMAIL || 'admin@parfaitvoyages.dz';
@@ -65,7 +74,7 @@ router.post('/', async (req, res) => {
           <p><strong>Date :</strong> ${date}</p>
         `
       };
-      await transporter.sendMail(adminMailOptions);
+      await transporter.sendMail(adminMailOptions).catch(console.error);
     }
 
     res.status(201).json({ success: true, booking: newBooking });
