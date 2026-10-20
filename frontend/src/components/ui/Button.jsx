@@ -1,15 +1,14 @@
 "use client";
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 import { motion } from 'framer-motion'
 import { useMagneticButton } from '@/animations/effects'
 
 const variants = {
-  primary: 'bg-[#006233] text-white hover:bg-[#007a3f] shadow-premium',
-  secondary: 'bg-[#D21034] text-white hover:bg-[#e8193e]',
-  gold: 'bg-gradient-to-r from-[#C9A96E] to-[#a8834a] text-white hover:opacity-90',
-  ghost: 'bg-transparent border border-[#006233] text-[#006233] hover:bg-[#006233] hover:text-white',
-  'ghost-white': 'bg-transparent border border-white text-white hover:bg-white hover:text-[#006233]',
-  dark: 'bg-[#0A0A0F] text-white hover:bg-[#12121a]',
+  primary: 'bg-gradient-to-r from-[#B8924A] via-[#c5a059] to-[#D4B57A] text-[#1A1200] font-semibold hover:opacity-90 shadow-gold',
+  secondary: 'bg-[var(--color-bg-surface)] text-[var(--color-text-primary)] border border-[var(--color-border-subtle)] hover:border-[var(--color-gold-500)]',
+  gold: 'bg-gradient-to-r from-[var(--color-gold-400)] to-[var(--color-gold-500)] text-[#1A1200] font-semibold hover:opacity-90',
+  ghost: 'bg-transparent text-[var(--color-gold-500)] hover:bg-[var(--color-gold-glow)]',
+  dark: 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)]',
 }
 
 const sizes = {
@@ -19,7 +18,7 @@ const sizes = {
   xl:  'px-10 py-5 text-xl',
 }
 
-export function Button({
+export const Button = memo(({
   children,
   variant = 'primary',
   size = 'md',
@@ -29,7 +28,7 @@ export function Button({
   type = 'button',
   disabled = false,
   ...props
-}) {
+}) => {
   const ref = useRef(null)
   const magneticPos = useMagneticButton(ref)
   const { x, y } = magnetic ? magneticPos : { x: 0, y: 0 }
@@ -45,12 +44,12 @@ export function Button({
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className={`
         relative inline-flex items-center justify-center gap-2
-        font-body font-medium rounded-xl
+        font-body rounded-[12px]
         transition-all duration-300 ease-out
         disabled:opacity-50 disabled:cursor-not-allowed
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A96E]
-        ${variants[variant]}
-        ${sizes[size]}
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-void)]
+        ${variants[variant] || variants.primary}
+        ${sizes[size] || sizes.md}
         ${className}
       `}
       {...props}
@@ -58,4 +57,6 @@ export function Button({
       {children}
     </motion.button>
   )
-}
+})
+
+Button.displayName = 'Button'

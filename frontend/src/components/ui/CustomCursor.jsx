@@ -12,8 +12,14 @@ export function CustomCursor() {
   const springConfig = { stiffness: 200, damping: 20, mass: 0.2 }
   const ringX = useSpring(-100, springConfig)
   const ringY = useSpring(-100, springConfig)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   useEffect(() => {
+    // Disable custom cursor on touch devices for a11y & performance
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      setIsTouchDevice(true)
+      return
+    }
     const handleMove = (e) => {
       const { clientX: x, clientY: y } = e
       setPos({ x, y })
@@ -49,7 +55,7 @@ export function CustomCursor() {
     }
   }, [ringX, ringY])
 
-  if (isHidden) return null
+  if (isTouchDevice || isHidden) return null
 
   return (
     <>

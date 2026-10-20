@@ -3,11 +3,13 @@ import "./globals.css";
 import { NavbarWrapper } from "@/components/layout/NavbarWrapper";
 import { FooterWrapper } from "@/components/layout/FooterWrapper";
 import { MainWrapper } from "@/components/layout/MainWrapper";
-import { CustomCursor } from "@/components/ui/CustomCursor";
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { BackToTop } from "@/components/ui/BackToTop";
+import dynamic from 'next/dynamic';
 
-import { ClientToaster } from '@/components/ui/ClientToaster';
+const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor').then(mod => mod.CustomCursor), { ssr: false });
+const WhatsAppButton = dynamic(() => import('@/components/ui/WhatsAppButton').then(mod => mod.WhatsAppButton), { ssr: false });
+const BackToTop = dynamic(() => import('@/components/ui/BackToTop').then(mod => mod.BackToTop), { ssr: false });
+const ClientToaster = dynamic(() => import('@/components/ui/ClientToaster').then(mod => mod.ClientToaster), { ssr: false });
+
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {

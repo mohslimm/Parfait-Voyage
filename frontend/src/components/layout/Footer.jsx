@@ -122,7 +122,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-8 pt-8 pb-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs font-body">
-            © {new Date().getFullYear()} Parfait Voyages. Tous droits réservés. Chéraga, Alger.
+            © 2026 Mohamed Slimani. Tous droits réservés. Chéraga, Alger.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/politique-confidentialite" className="text-white/30 hover:text-white/60 text-xs font-body transition-colors">Politique de confidentialité</Link>
